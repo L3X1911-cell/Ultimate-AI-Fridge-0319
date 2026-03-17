@@ -103,8 +103,7 @@ export function MainLayout() {
     }, [settings.autoScale, settings.uiScale]);
 
     // 定義可以讓使用者橫向滑動輪轉的主要功能分頁排序
-    const tabs = ["/", "/ingredients", "/inventory", "/recipes", "/saved", "/profile"];
-    // 取得當下畫面處在哪一個分頁索引，用來計算左右切換的方向
+    const tabs = ["/", "/inventory", "/recipes", "/saved", "/profile"];
     const currentIndex = tabs.findIndex(t => {
         if (t === "/") return location.pathname === "/";
         return location.pathname.startsWith(t);
@@ -164,10 +163,10 @@ export function MainLayout() {
                             dragConstraints={{ left: 0, right: 0 }}
                             onDragEnd={handleDragEnd}
                             dragListener={!settings.isModalOpen}
-                            initial={{ opacity: 0, x: 50 }}
+                            initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50, position: "absolute", width: "100%" }}
-                            transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
                             className="min-h-full w-full"
                         >
                             <Outlet />
