@@ -70,6 +70,33 @@ npm run dev
 
 ---
 
+## 🔒 安全與 API 金鑰保護 (Security & API Keys)
+
+為了確保您的 Google Gemini API Key 不會洩露在公開的 GitHub 倉庫中，本專案實施了以下保護機制：
+
+### 1. 本地開發 (Local Development)
+*   系統會讀取根目錄下的 `.env` 檔案。
+*   請參考 `.env.example` 建立您的 `.env`：
+    ```bash
+    VITE_LLM_API_KEY=您的金鑰
+    ```
+*   `.gitignore` 已設定忽略 `.env`，**金鑰絕不會被 git push 上傳**。
+
+### 2. GitHub Pages 部署 (GitHub Actions)
+若要在自動部署的網頁上使用預設金鑰，而不需每次手動輸入：
+1.  進入 GitHub 倉庫的 **Settings** -> **Secrets and variables** -> **Actions**。
+2.  新增一個 **Repository secret**。
+3.  名稱（Name）設定為：`VITE_LLM_API_KEY`。
+4.  數值（Value）填入您的 API Key。
+5.  下次推送程式碼時，GitHub Actions 會自動將此金鑰注入到編譯後的程式碼中。
+
+### ⚠️ 安全聲明 (Frontend-Only Security)
+在「無後端部署」的前提下，API 金鑰會被封裝在 JavaScript Bundle 中。雖然對於一般使用者是不可見的，但對於技術高手仍有被反編譯提取的風險。
+*   **建議做法**：在 Google AI Studio 中設定 API 金鑰的 **「IP 限制」** 或 **「使用配額限制」**，以增加安全性。
+*   **終極方案**：本 App 支援「使用者手動輸入」。如果您不信任雲端部署，可以不設定 Secret，讓每位使用者在 App 內的「神經節點配置」自行輸入私有金鑰，這也是最安全的模式。
+
+---
+
 ## 📖 核心功能開發重點
 如果您是開發者，請注意以下架構細節：
 *   **AI 核心 (Gemini)**：進入 App 後點擊個人頭像 -> **神經節點配置**，輸入 API Key。
