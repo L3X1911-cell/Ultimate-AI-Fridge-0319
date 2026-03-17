@@ -19,7 +19,7 @@ export function Inventory() {
 
     const categories = ["全部", "蔬菜", "水果", "肉類", "海鮮", "乳製品", "五穀", "其他"];
 
-    const filtered = scannedItems.filter(i => {
+    const filtered = (scannedItems || []).filter(i => {
         const matchesStorage = (i.storageType || "fridge") === storageTab;
         const matchesCategory = categoryTab === "全部" || i.category === categoryTab;
         return matchesStorage && matchesCategory;
@@ -45,7 +45,13 @@ export function Inventory() {
     return (
         <div ref={containerRef} className="pb-28 pt-6 relative overflow-hidden">
             <motion.div style={{ y: y1 }} className="absolute top-20 -left-20 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-            <motion.div style={{ y: y2 }} className="absolute bottom-40 -right-20 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+            <motion.div 
+                className="absolute bottom-40 -right-20 w-80 h-80 opacity-20 rounded-full blur-[100px] pointer-events-none" 
+                style={{ 
+                    y: y2,
+                    backgroundColor: storageTab === 'freezer' ? 'rgba(96,165,250,0.1)' : 'transparent' 
+                }} 
+            />
 
             <button onClick={() => navigate(-1)} className="fixed top-[1rem] left-[1rem] z-[110] w-[2.5rem] h-[2.5rem] bg-[#0d231b]/80 backdrop-blur-xl border border-white/10 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-all">
                 <ChevronLeft style={{ width: '1.25rem', height: '1.25rem' }} className="text-white" />
