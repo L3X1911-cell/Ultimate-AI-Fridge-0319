@@ -302,7 +302,6 @@ export function CameraView({ videoRef }: CameraViewProps) {
                 </div>
             )}
 
-            <DetectionSummary readOnly={true} />
 
             <div className="w-full mt-8 space-y-3 px-2">
                 <button

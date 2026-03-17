@@ -156,19 +156,19 @@ export function MainLayout() {
                     '--foreground': atmosphere.light ? "#1a4d3d" : "#ffffff"
                 } as any}
             >
-                <main className="flex-1 overflow-y-auto no-scrollbar scroll-smooth relative" style={{ backgroundColor: 'var(--background)' }}>
-                    <AnimatePresence mode="wait">
+                <main className="flex-1 overflow-x-hidden overflow-y-auto no-scrollbar scroll-smooth relative" style={{ backgroundColor: 'var(--background)' }}>
+                    <AnimatePresence mode="popLayout" initial={false}>
                         <motion.div
                             key={location.pathname}
                             drag={settings.isModalOpen ? false : "x"}
                             dragConstraints={{ left: 0, right: 0 }}
                             onDragEnd={handleDragEnd}
                             dragListener={!settings.isModalOpen}
-                            initial={{ opacity: 0, x: 20 }}
+                            initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            transition={{ duration: 0.25, ease: "easeInOut" }}
-                            className="touch-pan-y min-h-full w-full"
+                            exit={{ opacity: 0, x: -50, position: "absolute", width: "100%" }}
+                            transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                            className="min-h-full w-full"
                         >
                             <Outlet />
                         </motion.div>
