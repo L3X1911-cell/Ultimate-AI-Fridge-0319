@@ -197,6 +197,7 @@ export function SettingsModal({ type, onClose, settings, updateSettings, apiStat
                                     onPointerDown={(e) => e.stopPropagation()}
                                     onChange={(e) => updateSettings({ uiScale: parseFloat(e.target.value), autoScale: false })}
                                     className="w-full h-1.5 bg-black/40 rounded-full appearance-none accent-primary cursor-pointer border border-white/5" 
+                                    style={{ touchAction: 'none' }}
                                 />
                                 <div className="flex justify-between mt-3 px-1">
                                     <span className="text-[8px] font-black text-gray-700 uppercase">標準視網膜</span>

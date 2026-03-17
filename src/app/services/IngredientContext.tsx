@@ -96,7 +96,7 @@ export function IngredientProvider({ children }: { children: ReactNode }) {
         uiScale: 1.0,
         autoScale: true,
         customApiKeys: "",
-        themeColor: "var(--primary-default)"
+        themeColor: "#00ff88"
     });
     const [savedRecipes, setSavedRecipes] = useState<any[]>([]);
 
@@ -124,7 +124,7 @@ export function IngredientProvider({ children }: { children: ReactNode }) {
                 if (parsed.uiScale === undefined) parsed.uiScale = 1.0;
                 if (parsed.autoScale === undefined) parsed.autoScale = true;
                 if (parsed.customApiKeys === undefined) parsed.customApiKeys = "";
-                if (parsed.themeColor === undefined) parsed.themeColor = "var(--primary-default)";
+                if (parsed.themeColor === undefined || parsed.themeColor === "var(--primary-default)") parsed.themeColor = "#00ff88";
                 setSettings(parsed); 
             } catch (e) { }
         }
