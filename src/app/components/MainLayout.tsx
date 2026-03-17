@@ -103,7 +103,7 @@ export function MainLayout() {
     }, [settings.autoScale, settings.uiScale]);
 
     // 定義可以讓使用者橫向滑動輪轉的主要功能分頁排序
-    const tabs = ["/", "/ingredients", "/inventory", "/recipes", "/saved", "/profile"];
+    const tabs = ["/", "/inventory", "/recipes", "/saved", "/profile"];
     // 取得當下畫面處在哪一個分頁索引，用來計算左右切換的方向
     const currentIndex = tabs.findIndex(t => {
         if (t === "/") return location.pathname === "/";

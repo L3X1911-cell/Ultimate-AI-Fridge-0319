@@ -70,7 +70,7 @@ export function Inventory() {
                     <button onClick={() => setStorageTab('fridge')} className={`flex-1 py-[0.7rem] rounded-full text-[0.7rem] font-black uppercase transition-all flex items-center justify-center gap-2 ${storageTab === 'fridge' ? 'bg-primary text-black shadow-[0_0_15px_var(--primary-glow)]' : 'text-gray-500 hover:text-white'}`}>
                         <ChefHat style={{ width: '1.2rem', height: '1.2rem' }} /> 冷藏庫
                     </button>
-                    <button onClick={() => setStorageTab('freezer')} className={`flex-1 py-[0.7rem] rounded-full text-[0.7rem] font-black uppercase transition-all flex items-center justify-center gap-2 ${storageTab === 'freezer' ? 'bg-blue-400 text-black shadow-[0_0_15px_rgba(96,165,250,0.3)]' : 'text-gray-500 hover:text-white'}`}>
+                    <button onClick={() => setStorageTab('freezer')} className={`flex-1 py-[0.7rem] rounded-full text-[0.7rem] font-black uppercase transition-all flex items-center justify-center gap-2 ${storageTab === 'freezer' ? 'bg-primary text-black shadow-[0_0_15px_var(--primary-glow)]' : 'text-gray-500 hover:text-white'}`}>
                         <Snowflake style={{ width: '1.2rem', height: '1.2rem' }} /> 冷凍庫
                     </button>
                 </div>
@@ -97,7 +97,7 @@ export function Inventory() {
                                     onClick={() => setCategoryTab(c)}
                                     className={`flex-1 px-1 py-[0.6rem] rounded-[1.2rem] text-[0.6rem] font-black uppercase tracking-tighter border transition-all pointer-events-auto ${
                                         categoryTab === c 
-                                        ? (storageTab === 'fridge' ? 'bg-primary border-primary text-black shadow-[0_0_20px_var(--primary-glow)] scale-105' : 'bg-blue-400 border-blue-400 text-black shadow-[0_0_20px_rgba(96,165,250,0.4)] scale-105') 
+                                        ? 'bg-primary border-primary text-black shadow-[0_0_20px_var(--primary-glow)] scale-105'
                                         : 'bg-black/30 border-white/5 text-gray-500 hover:border-white/20'
                                     }`}
                                 >
@@ -113,7 +113,7 @@ export function Inventory() {
                                     onClick={() => setCategoryTab(c)}
                                     className={`flex-1 px-1 py-[0.6rem] rounded-[1.2rem] text-[0.6rem] font-black uppercase tracking-tighter border transition-all pointer-events-auto ${
                                         categoryTab === c 
-                                        ? (storageTab === 'fridge' ? 'bg-primary border-primary text-black shadow-[0_0_20px_var(--primary-glow)] scale-105' : 'bg-blue-400 border-blue-400 text-black shadow-[0_0_20px_rgba(96,165,250,0.4)] scale-105') 
+                                        ? 'bg-primary border-primary text-black shadow-[0_0_20px_var(--primary-glow)] scale-105'
                                         : 'bg-black/30 border-white/5 text-gray-500 hover:border-white/20'
                                     }`}
                                 >
@@ -151,7 +151,7 @@ export function Inventory() {
                         }
                     }}
                     disabled={isGenerating || selectedIds.length === 0}
-                    className={`w-full ${storageTab === 'fridge' ? 'bg-primary shadow-[0_15px_50px_var(--primary-glow)]' : 'bg-blue-400 shadow-[0_15px_50px_rgba(96,165,250,0.3)]'} text-black py-4 rounded-full font-black text-[0.75rem] uppercase tracking-widest disabled:opacity-50 transition-all hover:scale-[1.02] hover:translate-y-[-2px] active:scale-[0.98] flex items-center justify-center gap-2.5`}
+                    className={`w-full bg-primary shadow-[0_15px_50px_var(--primary-glow)] text-black py-4 rounded-full font-black text-[0.75rem] uppercase tracking-widest disabled:opacity-50 transition-all hover:scale-[1.02] hover:translate-y-[-2px] active:scale-[0.98] flex items-center justify-center gap-2.5`}
                 >
                     {isGenerating ? <Loader2 style={{ width: '1.2rem', height: '1.2rem' }} className="animate-spin relative z-10" /> : <Sparkles style={{ width: '1.2rem', height: '1.2rem' }} className="relative z-10" />}
                     <span className="relative z-10">{isGenerating ? "正在為您量子合成食譜..." : "生成 AI 食譜方案"}</span>
