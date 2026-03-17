@@ -41,8 +41,20 @@ export function SettingsModal({ type, onClose, settings, updateSettings, apiStat
     };
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] bg-background/95 backdrop-blur-3xl flex items-center justify-center p-4">
-            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-[#1a4d3d] w-[92vw] max-w-[420px] rounded-[2rem] border border-white/10 shadow-2xl relative overflow-hidden flex flex-col max-h-[92vh]">
+        <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            onPointerDown={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-[200] bg-background/95 backdrop-blur-3xl flex items-center justify-center p-4"
+        >
+            <motion.div 
+                initial={{ scale: 0.95, y: 20 }} 
+                animate={{ scale: 1, y: 0 }} 
+                onPointerDown={(e) => e.stopPropagation()}
+                className="bg-[#1a4d3d] w-[92vw] max-w-[420px] rounded-[2rem] border border-white/10 shadow-2xl relative overflow-hidden flex flex-col max-h-[92vh]"
+            >
                 <div className="absolute top-0 right-0 p-4 z-20">
                     <button onClick={onClose} className="w-[2.2rem] h-[2.2rem] rounded-full bg-white/5 flex items-center justify-center text-gray-500 hover:text-white transition-all"><X style={{ width: '1.2rem', height: '1.2rem' }} /></button>
                 </div>
@@ -184,8 +196,10 @@ export function SettingsModal({ type, onClose, settings, updateSettings, apiStat
                             </div>
 
                              <div 
-                                className={settings?.autoScale ? "opacity-40 pointer-events-none" : "relative z-[300] touch-none"}
-                                onPointerDown={(e) => e.stopPropagation()} // Stop bubbling to prevent parent motion.div dragging
+                                className={settings?.autoScale ? "opacity-40 pointer-events-none" : "relative z-[300] touch-none py-2"}
+                                onPointerDown={(e) => {
+                                    e.stopPropagation();
+                                }}
                              >
                                 <div className="flex justify-between items-center mb-4">
                                     <label className="text-[9px] font-black text-gray-500 uppercase tracking-widest">手動介面縮放 (Manual Scaling)</label>
