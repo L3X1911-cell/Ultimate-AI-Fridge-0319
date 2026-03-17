@@ -60,6 +60,9 @@ interface IngredientContextType {
     saveRecipe: (recipe: any) => void;
     unsaveRecipe: (recipeId: string) => void;
     clearAll: () => void;
+    clearInventory: () => void;
+    clearWasteHistory: () => void;
+    resetSettings: () => void;
     setRecipes: (recipes: any[]) => void;
     clearTempDetections: () => void;
     updateSettings: (settings: Partial<IngredientContextType['settings']>) => void;
@@ -351,19 +354,46 @@ export function IngredientProvider({ children }: { children: ReactNode }) {
     };
 
     const clearAll = () => {
-        // 第一步：物理層級清空所有 localStorage (最徹底的解決方案)
         localStorage.clear();
-        
-        // 第二步：同步重置所有記憶體狀態
         setScannedItems([]);
         setRecommendedRecipes([]);
         setTempDetections([]);
         setSavedRecipes([]);
         setWasteHistory([]);
         setSelectedIds([]);
-        
-        // 第三步：強制重新整理網頁，確保所有 Context 與快取完全刷新
         window.location.reload();
+    };
+
+    const clearInventory = () => {
+        localStorage.removeItem("scannedIngredients");
+        localStorage.removeItem("tempDetections");
+        setScannedItems([]);
+        setTempDetections([]);
+        notificationService.send("🧹 系統清理", "已清空所有庫存資料");
+    };
+
+    const clearWasteHistory = () => {
+        localStorage.removeItem("wasteHistory");
+        setWasteHistory([]);
+        notificationService.send("🧹 系統清理", "已清空所有浪費統計數據");
+    };
+
+    const resetSettings = () => {
+        const defaults = { 
+            notifications: true, 
+            neuralOptimized: true, 
+            confidenceThreshold: 0.25, 
+            darkMode: true,
+            dietary: { vegetarian: false, lowCalorie: false, allergies: "" },
+            uiScale: 1.0,
+            autoScale: true,
+            customApiKeys: "",
+            themeColor: "#00ff88",
+            isModalOpen: false
+        };
+        setSettings(defaults);
+        localStorage.setItem("appSettings", JSON.stringify(defaults));
+        notificationService.send("⚙️ 系統還原", "已將設定還原為初始狀態");
     };
 
     const updateSettings = (newSettings: Partial<IngredientContextType['settings']>) => {
@@ -400,6 +430,9 @@ export function IngredientProvider({ children }: { children: ReactNode }) {
             unsaveRecipe,
             savedRecipes,
             clearAll,
+            clearInventory,
+            clearWasteHistory,
+            resetSettings,
             setRecipes: setRecommendedRecipes,
             clearTempDetections,
             updateSettings

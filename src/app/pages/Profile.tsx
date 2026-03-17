@@ -7,7 +7,7 @@ import { llmService } from "../services/llmService";
 import { SettingsModal } from "../components/profile/SettingsModal";
 
 export function Profile() {
-    const { settings, updateSettings, clearAll } = useIngredients();
+    const { settings, updateSettings, clearAll, clearInventory, clearWasteHistory, resetSettings } = useIngredients();
     const nav = useNavigate();
     const [apiStatus, setApiStatus] = useState<{ status: 'online' | 'offline' | 'no_key', model: string, keyCount: number } | null>(null);
     const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -26,6 +26,7 @@ export function Profile() {
         { id: 'theme', label: "視覺風格", desc: "Premium Theme", icon: Palette, color: "text-rose-400", bg: "bg-rose-500/10" },
         { id: 'display', label: "介面縮放", desc: "UI Scaling", icon: Settings, color: "text-blue-400", bg: "bg-blue-500/10" },
         { id: 'system', label: "系統設定", desc: "System", icon: Bell, color: "text-amber-400", bg: "bg-amber-500/10" },
+        { id: 'data', label: "數據管理", desc: "Data Core", icon: LogOut, color: "text-red-400", bg: "bg-red-500/10" },
     ];
 
     return (
@@ -79,19 +80,10 @@ export function Profile() {
                 <ChevronRight size={20} className="text-gray-600 group-hover:text-white transition-all" />
             </button>
 
-            <button 
-                onPointerDown={(e) => e.stopPropagation()}
-                onClick={() => { if (window.confirm("確定要清空所有存儲的食材數據嗎？")) { clearAll(); alert("數據已重置。"); } }} 
-                className="w-full flex items-center gap-4 p-5 bg-red-500/5 rounded-3xl border border-red-500/10 hover:bg-red-500/10 transition-all relative z-10"
-            >
-                <div className="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center border border-red-500/20"><LogOut size={22} className="text-red-500" /></div>
-                <div><div className="text-xs font-black text-red-500 uppercase tracking-wider">清空所有資料</div><div className="text-[0.5rem] font-bold text-red-500/40 uppercase tracking-widest mt-0.5">Danger: Local Storage Clear</div></div>
-            </button>
-
             <AnimatePresence>{activeModal && (<SettingsModal type={activeModal} onClose={() => {
                 setActiveModal(null);
                 updateSettings({ isModalOpen: false });
-            }} settings={settings} updateSettings={updateSettings} apiStatus={apiStatus} />)}</AnimatePresence>
+            }} settings={settings} updateSettings={updateSettings} apiStatus={apiStatus} onClearInventory={clearInventory} onClearWaste={clearWasteHistory} onResetSettings={resetSettings} onClearAll={clearAll} />)}</AnimatePresence>
             <div className="text-center mt-12 opacity-20"><div className="text-[0.5rem] font-black text-white uppercase tracking-[0.5em]">KITCHEN AI v1.5 / ELITE CORE</div></div>
         </div>
     );

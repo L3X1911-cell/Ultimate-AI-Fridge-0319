@@ -10,9 +10,16 @@ interface SettingsModalProps {
     settings: any;
     updateSettings: (s: any) => void;
     apiStatus: any;
+    onClearInventory?: () => void;
+    onClearWaste?: () => void;
+    onResetSettings?: () => void;
+    onClearAll?: () => void;
 }
 
-export function SettingsModal({ type, onClose, settings, updateSettings, apiStatus }: SettingsModalProps) {
+export function SettingsModal({ 
+    type, onClose, settings, updateSettings, apiStatus,
+    onClearInventory, onClearWaste, onResetSettings, onClearAll 
+}: SettingsModalProps) {
     const [testRunning, setTestRunning] = useState(false);
     const [keyInput, setKeyInput] = useState(settings?.customApiKeys || "");
 
@@ -21,7 +28,8 @@ export function SettingsModal({ type, onClose, settings, updateSettings, apiStat
         dietary: "飲食偏好",
         theme: "外觀風格",
         display: "介面縮放",
-        system: "通知與設定"
+        system: "通知與設定",
+        data: "數據與隱私管理"
     };
 
     const handleKeySave = () => {
@@ -258,6 +266,62 @@ export function SettingsModal({ type, onClose, settings, updateSettings, apiStat
                                     <div className={`w-10 h-6 rounded-full relative p-0.5 border transition-all ${settings[sys.key] ? 'bg-primary/20 border-primary/30' : 'bg-gray-800 border-white/5'}`}>
                                         <div className={`w-4.5 h-4.5 bg-primary rounded-full shadow-lg transition-all ${settings[sys.key] ? 'translate-x-4' : 'translate-x-0'}`} />
                                     </div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    {type === 'data' && (
+                        <div className="space-y-4">
+                            <div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-4 flex gap-3 mb-2">
+                                <AlertTriangle size={18} className="text-red-500 shrink-0" />
+                                <p className="text-[10px] text-red-500/60 font-bold leading-relaxed uppercase">
+                                    注意：以下操作涉及敏感資料。一旦執行，對應的數據將從本地存儲中永久移除。
+                                </p>
+                            </div>
+
+                            {[
+                                { 
+                                    title: '清空食材庫存', 
+                                    desc: '移除所有冰箱內的食材紀錄', 
+                                    icon: Package, 
+                                    action: () => { if(window.confirm("確定要清空庫存嗎？")) { onClearInventory?.(); onClose(); } }
+                                },
+                                { 
+                                    title: '清空浪費統計', 
+                                    desc: '移除歷史耗損數據與圓餅圖紀錄', 
+                                    icon: AlertTriangle, 
+                                    action: () => { if(window.confirm("確定要清空浪費統計嗎？")) { onClearWaste?.(); onClose(); } }
+                                },
+                                { 
+                                    title: '還原初始設定', 
+                                    desc: '重置主題顏色、縮放量與飲食偏好', 
+                                    icon: RefreshCw, 
+                                    action: () => { if(window.confirm("確定要重置所有設定嗎？")) { onResetSettings?.(); onClose(); } }
+                                },
+                                { 
+                                    title: '全面清除所有數據', 
+                                    desc: '包含金鑰、庫存、設定與食譜 (將重新整理頁面)', 
+                                    variant: 'danger',
+                                    icon: LogOut, 
+                                    action: () => { if(window.confirm("⚠️ 警告：這將徹底清除所有 App 資料包含 API KEY，確定要執行嗎？")) { onClearAll?.(); } }
+                                }
+                            ].map((item, i) => (
+                                <button 
+                                    key={i} 
+                                    onClick={item.action}
+                                    className={`w-full ${item.variant === 'danger' ? 'bg-red-500/5 border-red-500/20' : 'bg-black/40 border-white/10'} hover:brightness-125 border rounded-2xl p-5 flex items-center justify-between transition-all group`}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className={`w-10 h-10 rounded-xl ${item.variant === 'danger' ? 'bg-red-500/20' : 'bg-white/5'} flex items-center justify-center border border-white/10 group-hover:border-primary/50 transition-all`}>
+                                            <item.icon size={18} className={item.variant === 'danger' ? "text-red-500" : "text-gray-400"} />
+                                        </div>
+                                        <div className="text-left">
+                                            <div className={`text-xs font-black uppercase tracking-widest ${item.variant === 'danger' ? 'text-red-500' : 'text-white'}`}>{item.title}</div>
+                                            <div className="text-[8px] font-bold text-gray-500 uppercase mt-0.5">{item.desc}</div>
+                                        </div>
+                                    </div>
+                                    <ChevronRight size={16} className="text-gray-600 group-hover:text-white" />
                                 </button>
                             ))}
                         </div>
