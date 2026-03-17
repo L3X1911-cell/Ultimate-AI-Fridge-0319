@@ -73,6 +73,10 @@ export function MainLayout() {
     const location = useLocation();
     const navigate = useNavigate();
     const { settings } = useIngredients();
+    
+    useEffect(() => {
+        console.log("KITCHEN AI LITE - UI Core v1.6.0 - Swipe Active");
+    }, []);
 
     // --- UI Scaling / Auto-Adapt Logic ---
     const [calculatedScale, setCalculatedScale] = useState(settings.uiScale || 1.0);
@@ -109,13 +113,12 @@ export function MainLayout() {
         return location.pathname.startsWith(t);
     });
 
-    // 處理觸控滑動結束的核心邏輯
     const handleDragEnd = (_: any, info: { offset: { x: number } }) => {
-        const threshold = 100; // 滑動距離超過 100 像素才觸發切換
+        const threshold = 50; // 更靈敏的滑動
         if (info.offset.x > threshold && currentIndex > 0) {
-            navigate(tabs[currentIndex - 1]); // 往左翻
+            navigate(tabs[currentIndex - 1]);
         } else if (info.offset.x < -threshold && currentIndex < tabs.length - 1 && currentIndex !== -1) {
-            navigate(tabs[currentIndex + 1]); // 往右翻
+            navigate(tabs[currentIndex + 1]);
         }
     };
 
@@ -163,10 +166,10 @@ export function MainLayout() {
                             dragConstraints={{ left: 0, right: 0 }}
                             onDragEnd={handleDragEnd}
                             dragListener={!settings.isModalOpen}
-                            initial={{ opacity: 0, x: 20 }}
+                            initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            exit={{ opacity: 0, x: -30, position: "absolute", top: 0, left: 0, width: "100%" }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
                             className="min-h-full w-full"
                         >
                             <Outlet />
