@@ -387,13 +387,13 @@ export function IngredientProvider({ children }: { children: ReactNode }) {
             dietary: { vegetarian: false, lowCalorie: false, allergies: "" },
             uiScale: 1.0,
             autoScale: true,
-            customApiKeys: "",
+            customApiKeys: settings.customApiKeys, // 保留當前金鑰，避免用戶重複輸入
             themeColor: "#00ff88",
             isModalOpen: false
         };
         setSettings(defaults);
         localStorage.setItem("appSettings", JSON.stringify(defaults));
-        notificationService.send("⚙️ 系統還原", "已將設定還原為初始狀態");
+        notificationService.send("⚙️ 系統還原", "已將設定還原為初始狀態 (金鑰已保留)");
     };
 
     const updateSettings = (newSettings: Partial<IngredientContextType['settings']>) => {

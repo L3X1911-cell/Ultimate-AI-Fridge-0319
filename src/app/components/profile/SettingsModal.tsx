@@ -295,16 +295,16 @@ export function SettingsModal({
                                 },
                                 { 
                                     title: '還原初始設定', 
-                                    desc: '重置主題顏色、縮放量與飲食偏好', 
+                                    desc: '重置 UI 縮放與偏好，並保留庫存與 API 金鑰', 
                                     icon: RefreshCw, 
-                                    action: () => { if(window.confirm("確定要重置所有設定嗎？")) { onResetSettings?.(); onClose(); } }
+                                    action: () => { if(window.confirm("確定要重置 UI 設定嗎？(食材庫存與金鑰會保留)")) { onResetSettings?.(); onClose(); } }
                                 },
                                 { 
                                     title: '全面清除所有數據', 
-                                    desc: '包含金鑰、庫存、設定與食譜 (將重新整理頁面)', 
+                                    desc: '徹底清空 App 所有紀錄與 Google API 金鑰', 
                                     variant: 'danger',
                                     icon: LogOut, 
-                                    action: () => { if(window.confirm("⚠️ 警告：這將徹底清除所有 App 資料包含 API KEY，確定要執行嗎？")) { onClearAll?.(); } }
+                                    action: () => { if(window.confirm("⚠️ 警告：這將徹底清除所有資料包含 API KEY，需要重新設定 App，確定要執行嗎？")) { onClearAll?.(); } }
                                 }
                             ].map((item, i) => (
                                 <button 
