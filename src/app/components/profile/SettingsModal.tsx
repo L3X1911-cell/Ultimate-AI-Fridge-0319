@@ -205,13 +205,15 @@ export function SettingsModal({ type, onClose, settings, updateSettings, apiStat
                                     <label className="text-[9px] font-black text-gray-500 uppercase tracking-widest">手動介面縮放 (Manual Scaling)</label>
                                     <span className="text-xs font-black text-primary">{Math.round((settings?.uiScale || 1.0) * 100)}%</span>
                                 </div>
-                                <div className="px-1">
+                                <div className="px-1 relative z-[300]">
                                     <input 
                                         type="range" 
                                         min="1.0" 
                                         max="2.0" 
                                         step="0.1" 
                                         value={settings?.uiScale || 1.0}
+                                        onPointerDown={(e) => e.stopPropagation()}
+                                        onTouchStart={(e) => e.stopPropagation()}
                                         onChange={(e) => updateSettings({ uiScale: parseFloat(e.target.value), autoScale: false })}
                                         className="w-full h-1.5 bg-black/40 rounded-full appearance-none accent-primary cursor-pointer border border-white/5" 
                                         style={{ touchAction: 'none' }}

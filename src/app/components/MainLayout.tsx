@@ -160,9 +160,10 @@ export function MainLayout() {
                     <AnimatePresence mode="popLayout">
                         <motion.div
                             key={location.pathname}
-                            drag="x"
+                            drag={settings.isModalOpen ? false : "x"}
                             dragConstraints={{ left: 0, right: 0 }}
                             onDragEnd={handleDragEnd}
+                            dragListener={!settings.isModalOpen}
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}

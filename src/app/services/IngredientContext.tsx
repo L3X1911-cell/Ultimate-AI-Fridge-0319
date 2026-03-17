@@ -40,12 +40,13 @@ interface IngredientContextType {
         dietary: {
             vegetarian: boolean;
             lowCalorie: boolean;
-            allergies: string; // e.g., "花生, 海鮮"
+            allergies: string;
         };
-        uiScale: number; // 0.8 - 1.2
+        uiScale: number;
         autoScale: boolean;
-        customApiKeys: string; // User defined keys via UI
-        themeColor: string; // e.g., "#00ff88"
+        customApiKeys: string;
+        themeColor: string;
+        isModalOpen: boolean;
     };
     wasteHistory: WasteRecord[];
     savedRecipes: any[];
@@ -96,7 +97,8 @@ export function IngredientProvider({ children }: { children: ReactNode }) {
         uiScale: 1.0,
         autoScale: true,
         customApiKeys: "",
-        themeColor: "#00ff88"
+        themeColor: "#00ff88",
+        isModalOpen: false
     });
     const [savedRecipes, setSavedRecipes] = useState<any[]>([]);
 

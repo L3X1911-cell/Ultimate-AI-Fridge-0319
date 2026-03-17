@@ -9,7 +9,7 @@ import { EditItemModal } from "../components/inventory_management/EditItemModal"
 
 export function Inventory() {
     const navigate = useNavigate();
-    const { scannedItems, addItem, updateQuantity, removeIngredient, selectedIds, toggleSelection, generateRecipe, updateItem } = useIngredients();
+    const { scannedItems, addItem, updateQuantity, removeIngredient, selectedIds, toggleSelection, generateRecipe, updateItem, updateSettings, settings } = useIngredients();
     const [isGenerating, setIsGenerating] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [storageTab, setStorageTab] = useState<"fridge" | "freezer">("fridge");
@@ -51,7 +51,10 @@ export function Inventory() {
                 <ChevronLeft style={{ width: '1.25rem', height: '1.25rem' }} className="text-white" />
             </button>
             <div className="flex justify-end px-[1rem] mb-[0.5rem]">
-                <button onClick={() => setShowForm(!showForm)} className="p-[0.5rem] bg-primary rounded-[0.75rem] shadow-lg hover:scale-105 active:scale-95 transition-all">
+                <button onClick={() => {
+                    setShowForm(!showForm);
+                    updateSettings({ isModalOpen: !showForm });
+                }} className="p-[0.5rem] bg-primary rounded-[0.75rem] shadow-lg hover:scale-105 active:scale-95 transition-all">
                     <Plus style={{ width: '1.25rem', height: '1.25rem' }} className="text-black stroke-[3]" />
                 </button>
             </div>
@@ -151,7 +154,10 @@ export function Inventory() {
 
             <InventoryStats freshItems={scannedItems.length - expiredCount} expiredItems={expiredCount} />
 
-            {showForm && (<AddEntryForm onAdd={(item) => addItem(item, "manual")} onDismiss={() => setShowForm(false)} categories={["全部", "蔬菜", "水果", "肉類", "海鮮", "乳製品", "五穀", "其他"]} />)}
+            {showForm && (<AddEntryForm onAdd={(item) => addItem(item, "manual")} onDismiss={() => {
+                setShowForm(false);
+                updateSettings({ isModalOpen: false });
+            }} categories={["全部", "蔬菜", "水果", "肉類", "海鮮", "乳製品", "五穀", "其他"]} />)}
 
             <div className="px-4 py-3">
                 <h3 className="font-black text-[0.63rem] uppercase text-white/30 mb-3 px-1">存貨紀錄 ({filtered.length})</h3>
@@ -193,7 +199,10 @@ export function Inventory() {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <button onClick={() => setEditingItem(i)} className="w-8 h-8 rounded-full bg-white/5 text-gray-400 flex items-center justify-center hover:text-white hover:bg-white/10 transition-colors"><Edit2 size={14} /></button>
+                                            <button onClick={() => {
+                                                setEditingItem(i);
+                                                updateSettings({ isModalOpen: true });
+                                            }} className="w-8 h-8 rounded-full bg-white/5 text-gray-400 flex items-center justify-center hover:text-white hover:bg-white/10 transition-colors"><Edit2 size={14} /></button>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-end gap-1.5 border-t border-white/5 pt-1.5 mt-1.5">
@@ -212,7 +221,10 @@ export function Inventory() {
             </div>
 
             {editingItem && (
-                <EditItemModal item={editingItem} onSave={handleSaveEdit} onDismiss={() => setEditingItem(null)} />
+                <EditItemModal item={editingItem} onSave={handleSaveEdit} onDismiss={() => {
+                    setEditingItem(null);
+                    updateSettings({ isModalOpen: false });
+                }} />
             )}
         </div>
     );

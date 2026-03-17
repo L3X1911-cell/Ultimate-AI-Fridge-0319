@@ -57,7 +57,10 @@ export function Profile() {
                         whileHover={{ scale: 1.02, y: -2 }} 
                         whileTap={{ scale: 0.98 }} 
                         onPointerDown={(e) => e.stopPropagation()}
-                        onClick={() => setActiveModal(item.id)} 
+                        onClick={() => {
+                            setActiveModal(item.id);
+                            updateSettings({ isModalOpen: true });
+                        }} 
                         className="p-4 rounded-[2rem] bg-[#0d231b]/60 backdrop-blur-xl border border-white/5 flex flex-col items-center text-center shadow-xl group transition-all relative z-10 gap-3"
                     >
                         <div className={`w-12 h-12 ${item.bg} rounded-2xl flex items-center justify-center border border-white/5 group-hover:border-primary/50 transition-all shrink-0`}>
@@ -85,7 +88,10 @@ export function Profile() {
                 <div><div className="text-xs font-black text-red-500 uppercase tracking-wider">清空所有資料</div><div className="text-[0.5rem] font-bold text-red-500/40 uppercase tracking-widest mt-0.5">Danger: Local Storage Clear</div></div>
             </button>
 
-            <AnimatePresence>{activeModal && (<SettingsModal type={activeModal} onClose={() => setActiveModal(null)} settings={settings} updateSettings={updateSettings} apiStatus={apiStatus} />)}</AnimatePresence>
+            <AnimatePresence>{activeModal && (<SettingsModal type={activeModal} onClose={() => {
+                setActiveModal(null);
+                updateSettings({ isModalOpen: false });
+            }} settings={settings} updateSettings={updateSettings} apiStatus={apiStatus} />)}</AnimatePresence>
             <div className="text-center mt-12 opacity-20"><div className="text-[0.5rem] font-black text-white uppercase tracking-[0.5em]">KITCHEN AI v1.5 / ELITE CORE</div></div>
         </div>
     );
