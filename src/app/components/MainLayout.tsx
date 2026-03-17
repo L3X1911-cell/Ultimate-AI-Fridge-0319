@@ -79,8 +79,15 @@ export function MainLayout() {
 
     useEffect(() => {
         const updateScale = () => {
+            // 自動縮放邏輯：
+            // 1. 如果寬度小於 430px (小手機)，則縮小 (Min 0.8)
+            // 2. 如果寬度大於 430px (大手機/電腦)，自動縮放不應超過 1.1，避免在螢幕較大的電腦上直接噴到 200%
+            const autoValue = window.innerWidth < 430 
+                ? Math.max(0.8, window.innerWidth / 430)
+                : Math.min(1.1, window.innerWidth / 430);
+
             const targetScale = settings.autoScale 
-                ? Math.max(1.0, Math.min(window.innerWidth / 430, 2.0)) 
+                ? autoValue
                 : (settings.uiScale || 1.0);
             
             setCalculatedScale(targetScale);

@@ -71,7 +71,7 @@ export function Inventory() {
                     <motion.div 
                         className="flex w-[200%] cursor-grab active:cursor-grabbing"
                         drag="x"
-                        dragConstraints={{ left: -window.innerWidth + 32, right: 0 }}
+                        dragConstraints={{ left: -100, right: 0 }} // Simplified for robustness
                         dragElastic={0.2}
                         onDragEnd={(e, info) => {
                             if (info.offset.x < -50 && categoryPage === 0) setCategoryPage(1);
