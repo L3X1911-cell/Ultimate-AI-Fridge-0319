@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Settings, Sparkles, ChefHat, Palette, Bell, Moon, AlertTriangle, Loader2, Package, RefreshCw } from "lucide-react";
+import { X, Settings, Sparkles, ChefHat, Palette, Bell, Moon, AlertTriangle, Loader2, Package, RefreshCw, LogOut, ChevronRight } from "lucide-react";
 import { llmService } from "../../services/llmService";
 import { notificationService } from "../../services/notificationService";
 
@@ -337,7 +337,7 @@ export function SettingsModal({
                     </button>
                     <div className="text-center mt-4 opacity-20 flex items-center justify-center gap-2">
                         <Package size={8} className="text-white" />
-                        <div className="text-[7px] font-black text-white uppercase tracking-[0.4em]">Kitchen AI Standard v1.5</div>
+                        <div className="text-[7px] font-black text-white uppercase tracking-[0.4em]">Kitchen AI Standard v1.6.0</div>
                     </div>
                 </div>
             </motion.div>

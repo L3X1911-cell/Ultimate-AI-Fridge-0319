@@ -84,7 +84,7 @@ export function Profile() {
                 setActiveModal(null);
                 updateSettings({ isModalOpen: false });
             }} settings={settings} updateSettings={updateSettings} apiStatus={apiStatus} onClearInventory={clearInventory} onClearWaste={clearWasteHistory} onResetSettings={resetSettings} onClearAll={clearAll} />)}</AnimatePresence>
-            <div className="text-center mt-12 opacity-20"><div className="text-[0.5rem] font-black text-white uppercase tracking-[0.5em]">KITCHEN AI v1.5 / ELITE CORE</div></div>
+            <div className="text-center mt-12 opacity-20"><div className="text-[0.5rem] font-black text-white uppercase tracking-[0.5em]">KITCHEN AI v1.6.0 / ELITE CORE</div></div>
         </div>
     );
 }
