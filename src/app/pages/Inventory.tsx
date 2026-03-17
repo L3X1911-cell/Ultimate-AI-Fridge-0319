@@ -44,10 +44,7 @@ export function Inventory() {
 
     return (
         <div ref={containerRef} className="pb-28 pt-6 relative overflow-hidden">
-            <motion.div style={{ y: y1 }} className="absolute top-20 -left-20 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-            <motion.div style={{ y: y2 }} className="absolute bottom-40 -right-20 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
-
-            <button onClick={() => navigate(-1)} className="fixed top-[1rem] left-[1rem] z-[110] w-[2.5rem] h-[2.5rem] bg-[#0d231b]/80 backdrop-blur-xl border border-white/10 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-all">
+            <button onClick={() => navigate(-1)} className="fixed top-[1rem] left-[1rem] z-[110] w-[2.5rem] h-[2.5rem] bg-[#0d231b]/80 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-all">
                 <ChevronLeft style={{ width: '1.25rem', height: '1.25rem' }} className="text-white" />
             </button>
             <div className="flex justify-end px-[1rem] mb-[0.5rem]">
@@ -60,7 +57,7 @@ export function Inventory() {
             </div>
 
             <div className="sticky top-2 z-20 pb-2 px-4 py-2 space-y-3">
-                <div className="flex bg-[#0d231b]/80 backdrop-blur-2xl p-[0.25rem] rounded-full border border-white/5 shadow-2xl">
+                <div className="flex bg-[#0d231b]/90 backdrop-blur-md p-[0.25rem] rounded-full border border-white/5 shadow-xl">
                     <button onClick={() => setStorageTab('fridge')} className={`flex-1 py-[0.7rem] rounded-full text-[0.7rem] font-black uppercase transition-all flex items-center justify-center gap-2 ${storageTab === 'fridge' ? 'bg-primary text-black shadow-[0_0_15px_var(--primary-glow)]' : 'text-gray-500 hover:text-white'}`}>
                         <ChefHat style={{ width: '1.2rem', height: '1.2rem' }} /> 冷藏庫
                     </button>
@@ -176,7 +173,7 @@ export function Inventory() {
                             const isWarning = !isExpired && daysLeft <= 2;
 
                             return (
-                                <motion.div key={i.id} layout initial={{ opacity: 0, y: 20, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} whileHover={{ scale: 1.02, rotateX: 2, rotateY: -2, translateZ: 20 }} className={`bg-[#0d231b]/60 backdrop-blur-xl rounded-2xl p-3 border transition-all relative overflow-hidden group shadow-lg hover:shadow-2xl ${i.isSpoiled || isExpired ? 'border-red-500/50 bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.1)]' : isWarning ? 'border-amber-400/50 bg-amber-400/5 shadow-[0_0_20px_rgba(251,191,36,0.1)]' : 'border-white/10'}`}>
+                                <motion.div key={i.id} layout initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className={`bg-[#0d231b]/80 backdrop-blur-md rounded-2xl p-3 border transition-all relative overflow-hidden group shadow-md ${i.isSpoiled || isExpired ? 'border-red-500/50 bg-red-500/5' : isWarning ? 'border-amber-400/50 bg-amber-400/5' : 'border-white/10'}`}>
                                     <div className="flex items-center gap-3">
                                         <button onClick={() => toggleSelection(i.id)} disabled={i.isSpoiled || isExpired} className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 transition-all ${i.isSpoiled || isExpired ? 'opacity-20 cursor-not-allowed border-gray-600' : selectedIds.includes(i.id) ? (storageTab === 'fridge' ? 'bg-primary border-primary' : 'bg-blue-400 border-blue-400') : 'bg-transparent border-white/20'}`}>
                                             {selectedIds.includes(i.id) && !i.isSpoiled && !isExpired && <div className="w-3 h-3 bg-background rounded-sm" />}

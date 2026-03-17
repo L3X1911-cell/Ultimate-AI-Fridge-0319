@@ -157,7 +157,7 @@ export function MainLayout() {
                 } as any}
             >
                 <main className="flex-1 overflow-y-auto no-scrollbar scroll-smooth relative" style={{ backgroundColor: 'var(--background)' }}>
-                    <AnimatePresence mode="popLayout">
+                    <AnimatePresence mode="wait">
                         <motion.div
                             key={location.pathname}
                             drag={settings.isModalOpen ? false : "x"}
