@@ -183,22 +183,26 @@ export function SettingsModal({ type, onClose, settings, updateSettings, apiStat
                                 </button>
                             </div>
 
-                            <div className={settings?.autoScale ? "opacity-40 pointer-events-none" : ""}>
+                             <div 
+                                className={settings?.autoScale ? "opacity-40 pointer-events-none" : "relative z-[300] touch-none"}
+                                onPointerDown={(e) => e.stopPropagation()} // Stop bubbling to prevent parent motion.div dragging
+                             >
                                 <div className="flex justify-between items-center mb-4">
                                     <label className="text-[9px] font-black text-gray-500 uppercase tracking-widest">手動介面縮放 (Manual Scaling)</label>
                                     <span className="text-xs font-black text-primary">{Math.round((settings?.uiScale || 1.0) * 100)}%</span>
                                 </div>
-                                <input 
-                                    type="range" 
-                                    min="1.0" 
-                                    max="2.0" 
-                                    step="0.1" 
-                                    value={settings?.uiScale || 1.0}
-                                    onPointerDown={(e) => e.stopPropagation()}
-                                    onChange={(e) => updateSettings({ uiScale: parseFloat(e.target.value), autoScale: false })}
-                                    className="w-full h-1.5 bg-black/40 rounded-full appearance-none accent-primary cursor-pointer border border-white/5" 
-                                    style={{ touchAction: 'none' }}
-                                />
+                                <div className="px-1">
+                                    <input 
+                                        type="range" 
+                                        min="1.0" 
+                                        max="2.0" 
+                                        step="0.1" 
+                                        value={settings?.uiScale || 1.0}
+                                        onChange={(e) => updateSettings({ uiScale: parseFloat(e.target.value), autoScale: false })}
+                                        className="w-full h-1.5 bg-black/40 rounded-full appearance-none accent-primary cursor-pointer border border-white/5" 
+                                        style={{ touchAction: 'none' }}
+                                    />
+                                </div>
                                 <div className="flex justify-between mt-3 px-1">
                                     <span className="text-[8px] font-black text-gray-700 uppercase">標準視網膜</span>
                                     <span className="text-[8px] font-black text-gray-700 uppercase">舒適閱讀</span>

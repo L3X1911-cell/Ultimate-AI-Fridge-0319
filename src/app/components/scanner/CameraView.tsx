@@ -308,10 +308,10 @@ export function CameraView({ videoRef }: CameraViewProps) {
                 <button
                     onClick={handleScan}
                     disabled={isScanning || (scanMode === "local" && !modelLoaded)}
-                    className="w-full bg-primary text-background py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:brightness-110 transition-all active:scale-[0.98] shadow-[0_8px_30px_var(--primary-glow)] disabled:opacity-50"
+                    className="w-full bg-primary text-background py-3 rounded-2xl font-black text-base flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-[0.98] shadow-[0_8px_30px_var(--primary-glow)] disabled:opacity-50"
                 >
                     {isScanning ? <Loader2 size={24} className="animate-spin" /> : scanMode === "cloud" ? <Sparkles size={24} strokeWidth={3} /> : <Camera size={24} strokeWidth={3} />}
-                    {isScanning ? "正在為您分析清單..." : scanMode === "cloud" ? "使用 Gemini 深度辨識" : "開始掃描並識別"}
+                    <span className="truncate">{isScanning ? "正在分析介面..." : scanMode === "cloud" ? "Gemini 深度辨識" : "開始識別"}</span>
                 </button>
             </div>
         </div>
