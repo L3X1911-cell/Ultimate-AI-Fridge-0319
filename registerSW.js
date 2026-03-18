@@ -1,1 +1,1 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/Fridge-AI-Master/sw.js', { scope: '/Fridge-AI-Master/' })})}
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/Ultimate-AI-Fridge-0319/sw.js', { scope: '/Ultimate-AI-Fridge-0319/' })})}
