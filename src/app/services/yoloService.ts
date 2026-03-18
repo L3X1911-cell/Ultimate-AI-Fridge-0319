@@ -40,7 +40,7 @@ export class YOLOService {
             const modelUrl = `${baseUrl}best.onnx?v=1.0.1`;
             
             this.session = await ort.InferenceSession.create(modelUrl, {
-                executionProviders: ["webgl", "wasm"],
+                executionProviders: ["webgpu", "webgl", "wasm"],
                 graphOptimizationLevel: "all"
             });
 
