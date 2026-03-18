@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- 應用程式進入點 (Main HTML Entry) -->
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- 禁止手機縮放，由 App 全域控制 (No viewport scaling for consistency) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="theme-color" content="#0f2e24" />
+  <!-- iOS PWA 設定 (Progressive Web App support) -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="apple-icon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <!-- 關鍵 AI 引擎：ONNX Runtime (WASM 加速器) -->
+  <script src="/Fridge-AI-Master/wasm/ort.min.js"></script>
+  <title>KITCHEN AI LITE | 智慧廚房</title>
+  <script type="module" crossorigin src="/Fridge-AI-Master/assets/index-9VcMroF4.js"></script>
+  <link rel="modulepreload" crossorigin href="/Fridge-AI-Master/assets/react-vendor-xjxIsVwp.js">
+  <link rel="modulepreload" crossorigin href="/Fridge-AI-Master/assets/ui-vendor-Bg2S-s-j.js">
+  <link rel="stylesheet" crossorigin href="/Fridge-AI-Master/assets/index-wDt5W2es.css">
+<link rel="manifest" href="/Fridge-AI-Master/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/Fridge-AI-Master/registerSW.js"></script></head>
+
+<body class="bg-black">
+  <!-- React 渲染根節點 (React render root) -->
+  <div id="root"></div>
+</body>
+
+</html>
